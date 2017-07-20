@@ -4,7 +4,7 @@
     <groupId>de.jollyday</groupId>
     <artifactId>jollyday</artifactId>
     <name>Jollyday</name>
-    <version>0.5.3-SNAPSHOT</version>
+    <version>0.5.3p1</version>
     <description>
         This API determines the holidays for a given year, country/name and eventually state/region. The holiday data is
         stored in XML files (one for each country) and will be read from the classpath. You can provide your own holiday
@@ -304,6 +304,19 @@
         </plugins>
     </reporting>
     <distributionManagement>
+        <repository>
+            <id>libs-release-local</id>
+            <name>Releases</name>
+            <url>${env.MAVEN_RELEASES_URL}</url>
+        </repository>
+        <snapshotRepository>
+            <id>libs-snapshot-local</id>
+            <name>Snapshots</name>
+            <url>${env.MAVEN_SNAPSHOTS_URL}</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <!--
+    <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -318,4 +331,5 @@
             <name>Sourceforge Site</name>
         </site>
     </distributionManagement>
+    -->
 </project>

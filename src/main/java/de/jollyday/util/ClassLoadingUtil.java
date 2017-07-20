@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 
 /**
  * <p>
- * ClassLoadingUtil class.
+ * ClassLoadingUtil class.  Modified by Magnet Systems to use the default class loader instead of
+ * the thread context class loader if a system property "jollyday.use.default.classloader" is "true".
  * </p>
  * 
  * @author José Pedro Pereira - Linkare TI
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
  */
 public class ClassLoadingUtil {
 
+	private static final boolean USE_DEF_CLZ_LDR = Boolean.getBoolean("jollyday.use.default.classloader");
 	private static final Logger LOG = Logger.getLogger(ClassLoadingUtil.class.getName());
 
 	/**
@@ -51,12 +53,16 @@ public class ClassLoadingUtil {
 	}
 
 	/**
-	 * Returns the current threads context classloader.
+	 * Returns the current threads context classloader or default classloader
 	 * 
 	 * @see Thread#currentThread() 
 	 * @return the current threads context classloader
 	 */
 	public ClassLoader getClassloader() {
-		return Thread.currentThread().getContextClassLoader();
+		if (USE_DEF_CLZ_LDR) {
+			return this.getClass().getClassLoader();
+		} else {
+			return Thread.currentThread().getContextClassLoader();
+		}
 	}
 }
